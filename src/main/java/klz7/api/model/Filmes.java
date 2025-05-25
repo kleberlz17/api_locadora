@@ -1,12 +1,14 @@
 package klz7.api.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Filmes {
@@ -28,16 +30,25 @@ public class Filmes {
 	@Column(name = "genero", nullable = false)
 	private String genero;
 
-	@Column(name = "unidades", nullable = false)
-	private String unidades;
+	@OneToMany(mappedBy = "filme")
+	private List<Locacao> locacoes;
 
-	public Filmes(Long idFilme, String nome, LocalDate dataLancamento, String diretor, String genero, String unidades) {
+	@Column(name = "estoque", nullable = false)
+	private int estoque;
+
+	public Filmes(Long idFilme, String nome, LocalDate dataLancamento, String diretor, String genero,
+			List<Locacao> locacoes, int estoque) {
 		this.idFilme = idFilme;
 		this.nome = nome;
 		this.dataLancamento = dataLancamento;
 		this.diretor = diretor;
 		this.genero = genero;
-		this.unidades = unidades;
+		this.locacoes = locacoes;
+		this.estoque = estoque;
+	}
+	
+	public Filmes() {
+		
 	}
 
 	public Long getIdFilme() {
@@ -80,18 +91,26 @@ public class Filmes {
 		this.genero = genero;
 	}
 
-	public String getUnidades() {
-		return unidades;
+	public List<Locacao> getLocacoes() {
+		return locacoes;
 	}
 
-	public void setUnidades(String unidades) {
-		this.unidades = unidades;
+	public void setLocacoes(List<Locacao> locacoes) {
+		this.locacoes = locacoes;
+	}
+
+	public int getEstoque() {
+		return estoque;
+	}
+
+	public void setEstoque(int estoque) {
+		this.estoque = estoque;
 	}
 
 	@Override
 	public String toString() {
 		return "Filmes [idFilme=" + idFilme + ", nome=" + nome + ", dataLancamento=" + dataLancamento + ", diretor="
-				+ diretor + ", genero=" + genero + ", unidades=" + unidades + "]";
+				+ diretor + ", genero=" + genero + ", locacoes=" + locacoes + ", estoque=" + estoque + "]";
 	}
 
 }

@@ -1,12 +1,14 @@
 package klz7.api.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Cliente {
@@ -31,18 +33,22 @@ public class Cliente {
 	@Column(name = "endereco", nullable = false)
 	private String endereco;
 
-	@Column(name = "dvds_com", nullable = false)
-	private String dvdsCom;
+	@OneToMany(mappedBy = "cliente")
+	private List<Locacao> locacoes;
 
 	public Cliente(Long idCliente, String nome, LocalDate dataNascimento, String telefone, String email,
-			String endereco, String dvdsCom) {
+			String endereco, List<Locacao> locacoes) {
 		this.idCliente = idCliente;
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
 		this.telefone = telefone;
 		this.email = email;
 		this.endereco = endereco;
-		this.dvdsCom = dvdsCom;
+		this.locacoes = locacoes;
+	}
+	
+	public Cliente() {
+		
 	}
 
 	public Long getIdCliente() {
@@ -93,18 +99,18 @@ public class Cliente {
 		this.endereco = endereco;
 	}
 
-	public String getDvdsCom() {
-		return dvdsCom;
+	public List<Locacao> getLocacoes() {
+		return locacoes;
 	}
 
-	public void setDvdsCom(String dvdsCom) {
-		this.dvdsCom = dvdsCom;
+	public void setLocacoes(List<Locacao> locacoes) {
+		this.locacoes = locacoes;
 	}
 
 	@Override
 	public String toString() {
 		return "Cliente [idCliente=" + idCliente + ", nome=" + nome + ", dataNascimento=" + dataNascimento
-				+ ", telefone=" + telefone + ", email=" + email + ", endereco=" + endereco + ", dvdsCom=" + dvdsCom
+				+ ", telefone=" + telefone + ", email=" + email + ", endereco=" + endereco + ", locacoes=" + locacoes
 				+ "]";
 	}
 

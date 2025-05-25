@@ -1,7 +1,6 @@
 package klz7.api.dto;
 
 import java.time.LocalDate;
-
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -30,17 +29,15 @@ public class FilmesDTO {
 	@Size(min = 3, max = 50, message = "Genero fora do tamanho padrão permitido.")
 	private String genero;
 
-	@NotBlank(message = "A quantidade de unidades disponiveis não deve estar em branco.")
-	private String unidades;
+	private int estoque;
 
-	public FilmesDTO(Long idFilme, String nome, LocalDate dataLancamento, String diretor, String genero,
-			String unidades) {
+	public FilmesDTO(Long idFilme, String nome, LocalDate dataLancamento, String diretor, String genero, int estoque) {
 		this.idFilme = idFilme;
 		this.nome = nome;
 		this.dataLancamento = dataLancamento;
 		this.diretor = diretor;
 		this.genero = genero;
-		this.unidades = unidades;
+		this.estoque = estoque;
 	}
 
 	public Long getIdFilme() {
@@ -83,12 +80,12 @@ public class FilmesDTO {
 		this.genero = genero;
 	}
 
-	public String getUnidades() {
-		return unidades;
+	public int getEstoque() {
+		return estoque;
 	}
 
-	public void setUnidades(String unidades) {
-		this.unidades = unidades;
+	public void setEstoque(int estoque) {
+		this.estoque = estoque;
 	}
 
 }

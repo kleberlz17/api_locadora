@@ -34,18 +34,14 @@ public class ClienteDTO {
 	@Size(min = 5, max = 100, message = "Fora do tamanho padrão permitido.")
 	private String endereco;
 
-	@NotBlank(message = "A quantidade de DVDs com o cliente não deve estar em branco.")
-	private String dvdsCom;
-
 	public ClienteDTO(Long idCliente, String nome, LocalDate dataNascimento, String telefone, String email,
-			String endereco, String dvdsCom) {
+			String endereco) {
 		this.idCliente = idCliente;
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
 		this.telefone = telefone;
 		this.email = email;
 		this.endereco = endereco;
-		this.dvdsCom = dvdsCom;
 	}
 
 	public Long getIdCliente() {
@@ -94,14 +90,6 @@ public class ClienteDTO {
 
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
-	}
-
-	public String getDvdsCom() {
-		return dvdsCom;
-	}
-
-	public void setDvdsCom(String dvdsCom) {
-		this.dvdsCom = dvdsCom;
 	}
 
 }
