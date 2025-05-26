@@ -1,0 +1,23 @@
+package klz7.api.repository;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import klz7.api.model.Cliente;
+import klz7.api.model.Filmes;
+import klz7.api.model.Locacao;
+
+public interface LocacaoRepository extends JpaRepository<Locacao, Long> {
+
+	Optional<Locacao> findById(Long idLocacao);
+	
+	List<Locacao> findByClienteContainingIgnoreCase(Cliente cliente);
+	
+	List<Locacao> findByFilmesContainingIgnoreCase(Filmes filmes);
+	
+	List<Locacao> findByDataLocacao(LocalDate dataLocacao);
+	
+	List<Locacao> findByDataDevolucao(LocalDate dataDevolucao);
+}

@@ -13,6 +13,7 @@ public class ClienteConverter {
 		cliente.setIdCliente(dto.getIdCliente());
 		cliente.setNome(dto.getNome());
 		cliente.setDataNascimento(dto.getDataNascimento());
+		cliente.setCpf(dto.getCpf());
 		cliente.setTelefone(dto.getTelefone());
 		cliente.setEmail(dto.getEmail());
 		cliente.setEndereco(dto.getEndereco());
@@ -24,6 +25,7 @@ public class ClienteConverter {
 				entidade.getIdCliente(),
 				entidade.getNome(),
 				entidade.getDataNascimento(),
+				entidade.getCpf(),
 				entidade.getTelefone(),
 				entidade.getEmail(),
 				entidade.getEndereco()

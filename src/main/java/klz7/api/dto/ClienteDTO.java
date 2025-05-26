@@ -22,6 +22,9 @@ public class ClienteDTO {
 
 	@NotNull(message = "A data de nascimento é obrigatória.")
 	private LocalDate dataNascimento;
+	
+	@Pattern(regexp = "\\d{11}", message = "O CPF deve conter 11 números.")
+	private String cpf;
 
 	@Pattern(regexp = "\\d{11}", message = "Telefone deve conter 11 números.")
 	private String telefone;
@@ -34,11 +37,12 @@ public class ClienteDTO {
 	@Size(min = 5, max = 100, message = "Fora do tamanho padrão permitido.")
 	private String endereco;
 
-	public ClienteDTO(Long idCliente, String nome, LocalDate dataNascimento, String telefone, String email,
+	public ClienteDTO(Long idCliente, String nome, LocalDate dataNascimento, String cpf, String telefone, String email,
 			String endereco) {
 		this.idCliente = idCliente;
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
+		this.cpf = cpf;
 		this.telefone = telefone;
 		this.email = email;
 		this.endereco = endereco;
@@ -68,6 +72,14 @@ public class ClienteDTO {
 		this.dataNascimento = dataNascimento;
 	}
 
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
 	public String getTelefone() {
 		return telefone;
 	}
@@ -92,4 +104,5 @@ public class ClienteDTO {
 		this.endereco = endereco;
 	}
 
+	
 }

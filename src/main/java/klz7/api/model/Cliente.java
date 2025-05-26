@@ -24,6 +24,9 @@ public class Cliente {
 	@Column(name = "data_nascimento", nullable = false)
 	private LocalDate dataNascimento;
 
+	@Column(name = "cpf", nullable = false)
+	private String cpf;
+	
 	@Column(name = "telefone", nullable = false)
 	private String telefone;
 
@@ -36,11 +39,12 @@ public class Cliente {
 	@OneToMany(mappedBy = "cliente")
 	private List<Locacao> locacoes;
 
-	public Cliente(Long idCliente, String nome, LocalDate dataNascimento, String telefone, String email,
+	public Cliente(Long idCliente, String nome, LocalDate dataNascimento, String cpf, String telefone, String email,
 			String endereco, List<Locacao> locacoes) {
 		this.idCliente = idCliente;
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
+		this.cpf = cpf;
 		this.telefone = telefone;
 		this.email = email;
 		this.endereco = endereco;
@@ -73,6 +77,14 @@ public class Cliente {
 
 	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 	public String getTelefone() {
@@ -109,9 +121,11 @@ public class Cliente {
 
 	@Override
 	public String toString() {
-		return "Cliente [idCliente=" + idCliente + ", nome=" + nome + ", dataNascimento=" + dataNascimento
-				+ ", telefone=" + telefone + ", email=" + email + ", endereco=" + endereco + ", locacoes=" + locacoes
-				+ "]";
+		return "Cliente [idCliente=" + idCliente + ", nome=" + nome + ", dataNascimento=" + dataNascimento + ", cpf="
+				+ cpf + ", telefone=" + telefone + ", email=" + email + ", endereco=" + endereco + ", locacoes="
+				+ locacoes + "]";
 	}
+	
+	
 
 }
