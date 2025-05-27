@@ -25,5 +25,42 @@ public class GlobalExceptionHandler {
 		ErroResposta erro = new ErroResposta(ex.getMessage(), HttpStatus.CONFLICT.value(), "Telefone já cadastrado.");
 		return ResponseEntity.status(HttpStatus.CONFLICT).body(erro);
 	}
+	
+	@ExceptionHandler(EstoqueNegativoException.class)
+	public ResponseEntity<ErroResposta> handleEstoqueNegativo(EstoqueNegativoException ex) {
+		ErroResposta erro = new ErroResposta(ex.getMessage(), HttpStatus.BAD_REQUEST.value(), "Estoque não pode ser negativo.");
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
+	}
+	
+	@ExceptionHandler(NomeFilmeDuplicadoException.class)
+	public ResponseEntity<ErroResposta> handleNomeFilmeDuplicado(NomeFilmeDuplicadoException ex) {
+		ErroResposta erro = new ErroResposta(ex.getMessage(), HttpStatus.CONFLICT.value(), "Filme já cadastrado.");
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(erro);
+	}
+	
+	@ExceptionHandler(DataLocacaoInvalidaException.class)
+	public ResponseEntity<ErroResposta> handleDataLocacaoInvalida(DataLocacaoInvalidaException ex) {
+		ErroResposta erro = new ErroResposta(ex.getMessage(), HttpStatus.BAD_REQUEST.value(), "Data de locação inválida.");
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
+	}
+	
+	@ExceptionHandler(DataDevolucaoInvalidaException.class)
+	public ResponseEntity<ErroResposta> handleDataDevolucaoInvalida(DataDevolucaoInvalidaException ex) {
+		ErroResposta erro = new ErroResposta(ex.getMessage(), HttpStatus.BAD_REQUEST.value(), "Data de devolução inválida.");
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);	
+	}
+	
+	@ExceptionHandler(DataLancamentoInvalidaException.class)
+	public ResponseEntity<ErroResposta> handleDataLancamentoInvalida(DataLancamentoInvalidaException ex) {
+		ErroResposta erro = new ErroResposta(ex.getMessage(), HttpStatus.BAD_REQUEST.value(), "Data de lançamento inválida.");
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
+	}
+	
+	@ExceptionHandler(QuantidadeNegativaException.class)
+	public ResponseEntity<ErroResposta> handleQuantidadeNegativa(QuantidadeNegativaException ex) {
+		ErroResposta erro = new ErroResposta(ex.getMessage(), HttpStatus.BAD_REQUEST.value(), "A quantidade não pode ser negativa.");
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
+	}
 
+	
 }
