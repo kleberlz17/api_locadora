@@ -43,6 +43,12 @@ public class FilmesValidator {
 		}
 	}
 	
+	public void validarTudo(Filmes filmes) { // Esse é pro salvar filme.
+		validarDuplicidadeNome(filmes.getNome());
+		validarEstoque(filmes.getEstoque());
+		validarDataLancamento(filmes.getDataLancamento());
+	}
+	
 	
 
 }

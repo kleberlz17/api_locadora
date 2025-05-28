@@ -61,6 +61,23 @@ public class GlobalExceptionHandler {
 		ErroResposta erro = new ErroResposta(ex.getMessage(), HttpStatus.BAD_REQUEST.value(), "A quantidade não pode ser negativa.");
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
 	}
+	
+	@ExceptionHandler(ClienteNaoEncontradoException.class)
+	public ResponseEntity<ErroResposta> handleClienteNaoEncontradoException(ClienteNaoEncontradoException ex) {
+		ErroResposta erro = new ErroResposta(ex.getMessage(), HttpStatus.NOT_FOUND.value(), "O cliente não foi encontrado no banco de dados.");
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
+	}
+	
+	@ExceptionHandler(FilmeNuloVazioException.class)
+	public ResponseEntity<ErroResposta> handleFilmeNuloVazioException(FilmeNuloVazioException ex) {
+		ErroResposta erro = new ErroResposta(ex.getMessage(), HttpStatus.BAD_REQUEST.value(), "O filme não pode ser nulo ou vazio.");
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);	
+	}
 
+	@ExceptionHandler(FilmeNaoEncontradoException.class)
+	public ResponseEntity<ErroResposta> handleFilmeNaoEncontradoException(FilmeNaoEncontradoException ex) {
+		ErroResposta erro = new ErroResposta(ex.getMessage(), HttpStatus.NOT_FOUND.value(), "O filme não foi encontrado no banco de dados.");
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
+	}
 	
 }
