@@ -11,6 +11,14 @@ public class LocacaoDTO {
 	@Min(1)
 	@Max(999999)
 	private Long idLocacao;
+	
+	@Min(1)
+	@Max(999999)
+	private Long idCliente;
+	
+	@Min(1)
+	@Max(999999)
+	private Long idFilmes;
 
 	@NotNull(message = "A data da locação é obrigatória.")
 	private LocalDate dataLocacao;
@@ -24,9 +32,11 @@ public class LocacaoDTO {
 	@Min(value = 1, message = "A quantidade deve ser no mínimo 1.")
 	private int quantidade;
 
-	public LocacaoDTO(Long idLocacao, LocalDate dataLocacao, LocalDate dataDevolucao, boolean devolvido,
+	public LocacaoDTO(Long idLocacao, Long idCliente, Long idFilmes, LocalDate dataLocacao, LocalDate dataDevolucao, boolean devolvido,
 			int quantidade) {
 		this.idLocacao = idLocacao;
+		this.idCliente = idCliente;
+		this.idFilmes = idFilmes;
 		this.dataLocacao = dataLocacao;
 		this.dataDevolucao = dataDevolucao;
 		this.devolvido = devolvido;
@@ -39,6 +49,22 @@ public class LocacaoDTO {
 
 	public void setIdLocacao(Long idLocacao) {
 		this.idLocacao = idLocacao;
+	}
+
+	public Long getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(Long idCliente) {
+		this.idCliente = idCliente;
+	}
+
+	public Long getIdFilmes() {
+		return idFilmes;
+	}
+
+	public void setIdFilmes(Long idFilmes) {
+		this.idFilmes = idFilmes;
 	}
 
 	public LocalDate getDataLocacao() {
@@ -72,6 +98,8 @@ public class LocacaoDTO {
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
 	}
+
+	
 
 	
 }

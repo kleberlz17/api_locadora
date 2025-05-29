@@ -80,4 +80,10 @@ public class GlobalExceptionHandler {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
 	}
 	
+	@ExceptionHandler(LocacaoNaoEncontradaException.class)
+	public ResponseEntity<ErroResposta> handleLocacaoNaoEncontradaException(LocacaoNaoEncontradaException ex) {
+		ErroResposta erro = new ErroResposta(ex.getMessage(), HttpStatus.NOT_FOUND.value(), "A locação não foi encontrada no banco de dados.");
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
+	}
+	
 }

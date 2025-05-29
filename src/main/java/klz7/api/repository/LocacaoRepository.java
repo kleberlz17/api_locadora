@@ -13,9 +13,13 @@ public interface LocacaoRepository extends JpaRepository<Locacao, Long> {
 
 	Optional<Locacao> findById(Long idLocacao);
 	
-	List<Locacao> findByClienteContainingIgnoreCase(Cliente cliente);
+	List<Locacao> findByClienteId(Long idCliente);
 	
-	List<Locacao> findByFilmesContainingIgnoreCase(Filmes filmes);
+	List<Locacao> findByCliente(Cliente cliente);
+	
+	List<Locacao> findByFilmes(Filmes filmes);
+	
+	List<Locacao> findByFilmesIdFilme(Long idFilme);
 	
 	List<Locacao> findByDataLocacao(LocalDate dataLocacao);
 	
