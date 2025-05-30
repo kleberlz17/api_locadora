@@ -24,4 +24,6 @@ public interface LocacaoRepository extends JpaRepository<Locacao, Long> {
 	List<Locacao> findByDataLocacao(LocalDate dataLocacao);
 	
 	List<Locacao> findByDataDevolucao(LocalDate dataDevolucao);
+	
+	Optional<Locacao> findByQuantidade(int quantidade);
 }

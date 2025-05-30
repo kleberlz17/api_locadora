@@ -56,34 +56,40 @@ public class GlobalExceptionHandler {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
 	}
 	
-	@ExceptionHandler(QuantidadeNegativaException.class)
-	public ResponseEntity<ErroResposta> handleQuantidadeNegativa(QuantidadeNegativaException ex) {
+	@ExceptionHandler(QuantidadeNegativaNulaException.class)
+	public ResponseEntity<ErroResposta> handleQuantidadeNegativa(QuantidadeNegativaNulaException ex) {
 		ErroResposta erro = new ErroResposta(ex.getMessage(), HttpStatus.BAD_REQUEST.value(), "A quantidade não pode ser negativa.");
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
 	}
 	
 	@ExceptionHandler(ClienteNaoEncontradoException.class)
-	public ResponseEntity<ErroResposta> handleClienteNaoEncontradoException(ClienteNaoEncontradoException ex) {
+	public ResponseEntity<ErroResposta> handleClienteNaoEncontrado(ClienteNaoEncontradoException ex) {
 		ErroResposta erro = new ErroResposta(ex.getMessage(), HttpStatus.NOT_FOUND.value(), "O cliente não foi encontrado no banco de dados.");
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
 	}
 	
 	@ExceptionHandler(FilmeNuloVazioException.class)
-	public ResponseEntity<ErroResposta> handleFilmeNuloVazioException(FilmeNuloVazioException ex) {
+	public ResponseEntity<ErroResposta> handleFilmeNuloVazio(FilmeNuloVazioException ex) {
 		ErroResposta erro = new ErroResposta(ex.getMessage(), HttpStatus.BAD_REQUEST.value(), "O filme não pode ser nulo ou vazio.");
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);	
 	}
 
 	@ExceptionHandler(FilmeNaoEncontradoException.class)
-	public ResponseEntity<ErroResposta> handleFilmeNaoEncontradoException(FilmeNaoEncontradoException ex) {
+	public ResponseEntity<ErroResposta> handleFilmeNaoEncontrado(FilmeNaoEncontradoException ex) {
 		ErroResposta erro = new ErroResposta(ex.getMessage(), HttpStatus.NOT_FOUND.value(), "O filme não foi encontrado no banco de dados.");
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
 	}
 	
 	@ExceptionHandler(LocacaoNaoEncontradaException.class)
-	public ResponseEntity<ErroResposta> handleLocacaoNaoEncontradaException(LocacaoNaoEncontradaException ex) {
+	public ResponseEntity<ErroResposta> handleLocacaoNaoEncontrada(LocacaoNaoEncontradaException ex) {
 		ErroResposta erro = new ErroResposta(ex.getMessage(), HttpStatus.NOT_FOUND.value(), "A locação não foi encontrada no banco de dados.");
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
+	}
+	
+	@ExceptionHandler(EstoqueVazioException.class)
+	public ResponseEntity<ErroResposta> handleEstoqueVazio(EstoqueVazioException ex) {
+		ErroResposta erro = new ErroResposta(ex.getMessage(), HttpStatus.BAD_REQUEST.value(), "O estoque não tem unidades suficientes disponíveis pra alugar.");
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
 	}
 	
 }

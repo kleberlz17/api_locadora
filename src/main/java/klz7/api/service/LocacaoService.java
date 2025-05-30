@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import klz7.api.dto.LocacaoDTO;
 import klz7.api.exception.ClienteNaoEncontradoException;
 import klz7.api.exception.DataDevolucaoInvalidaException;
+import klz7.api.exception.EstoqueVazioException;
 import klz7.api.exception.FilmeNaoEncontradoException;
 import klz7.api.exception.LocacaoNaoEncontradaException;
+import klz7.api.exception.QuantidadeNegativaNulaException;
 import klz7.api.model.Cliente;
 import klz7.api.model.Filmes;
 import klz7.api.model.Locacao;
@@ -114,6 +116,36 @@ public class LocacaoService {
 		
 		log.info("Multa calculada para locação ID {}: R${}", locacao.getIdLocacao(), valorMulta);
 		return valorMulta;
+	}
+	
+	public Locacao alugarFilme(Long idCliente, Long idFilmes, int quantidade, LocalDate dataDevolucao) {
+		Cliente alugador = clienteRepository.findById(idCliente)
+				.orElseThrow(() -> new ClienteNaoEncontradoException("Cliente não encontrado."));
+		
+		Filmes alugado = filmesRepository.findById(idFilmes)
+				.orElseThrow(() -> new FilmeNaoEncontradoException("Filme não encontrado."));
+		
+		if (quantidade <= 0) {
+			throw new QuantidadeNegativaNulaException("Quantidade selecionada inválida.");
+		}
+		
+		if (alugado.getEstoque() < quantidade) {
+			throw new EstoqueVazioException("Sem unidades suficientes disponíveis do filme selecionado.");
+		}
+		
+		alugado.setEstoque(alugado.getEstoque() - quantidade);
+		filmesRepository.save(alugado);
+		
+		Locacao locacao = new Locacao();
+		locacao.setCliente(alugador);
+		locacao.setFilmes(alugado);
+		locacao.setQuantidade(quantidade);
+		locacao.setDataLocacao(LocalDate.now());
+		locacao.setDataDevolucao(dataDevolucao);
+		
+		log.info("Locação executada com sucesso: {} (ID {}) alugado por {} (ID {}), quantidade: {}.",
+				alugado.getNome(), alugado.getIdFilme(), alugador.getNome(), alugador.getIdCliente(), quantidade);
+		return locacaoRepository.save(locacao);	
 	}
 	
 }

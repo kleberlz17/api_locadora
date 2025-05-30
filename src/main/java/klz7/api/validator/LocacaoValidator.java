@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import klz7.api.exception.DataDevolucaoInvalidaException;
 import klz7.api.exception.DataLocacaoInvalidaException;
-import klz7.api.exception.QuantidadeNegativaException;
+import klz7.api.exception.QuantidadeNegativaNulaException;
 import klz7.api.model.Locacao;
 
 @Component
@@ -27,7 +27,7 @@ public class LocacaoValidator {
 	
 	public void validarQuantidade(int quantidade) {
 		if(quantidade < 0) {
-			throw new QuantidadeNegativaException("A quantidade não deve ser negativa, somente de 0 pra cima é permitido.");
+			throw new QuantidadeNegativaNulaException("A quantidade não deve ser negativa, somente de 0 pra cima é permitido.");
 		}
 	}
 	
