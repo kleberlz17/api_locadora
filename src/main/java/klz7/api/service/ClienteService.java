@@ -39,18 +39,21 @@ public class ClienteService {
 	}
 	
 	public Optional<Cliente> buscarPorId(Long idCliente) {
-		log.info("Cliente encontrado com o ID digitado: {}", idCliente);
-		return clienteRepository.findById(idCliente);
+		Optional<Cliente> clienteId = clienteRepository.findById(idCliente);
+		log.info("Buscar por ID: '{}'. Cliente encontrado: {}", idCliente, clienteId);
+		return clienteId;
 	}
 	
 	public List<Cliente> buscarPorNome(String nome) {
-		log.info("Clientes encontrados com o nome digitado: {}", nome);
-		return clienteRepository.findByNomeContainingIgnoreCase(nome);
+		List<Cliente> clientesNome = clienteRepository.findByNomeContainingIgnoreCase(nome);
+		log.info("Buscar por nome: '{}'. Clientes encontrados: {}", nome, clientesNome);
+		return clientesNome;
 	}
 	
 	public Optional<Cliente> buscarPorCpf(String cpf) {
-		log.info("Cliente encontrado com o CPF digitado: {}", cpf);
-		return clienteRepository.findByCpfContainingIgnoreCase(cpf);
+		Optional<Cliente> clienteCpf = clienteRepository.findByCpfContainingIgnoreCase(cpf);
+		log.info("Buscar por CPF: '{}'. Cliente encontrado: {}", cpf, clienteCpf);
+		return clienteCpf;
 	}
 	
 	private Cliente atualizarCampo(Long idCliente, Consumer<Cliente> atualizador) {

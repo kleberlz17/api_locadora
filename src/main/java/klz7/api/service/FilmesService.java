@@ -44,34 +44,40 @@ public class FilmesService {
 	}
 	
 	public Optional<Filmes> buscarPorId(Long idFilme) {
-		log.info("Filme encontrado com o ID digitado: {}", idFilme);
-		return filmesRepository.findById(idFilme);
+		Optional<Filmes> filme = filmesRepository.findById(idFilme);
+		log.info("Buscar por ID: '{}'. Filme encontrado: {}", idFilme, filme);
+		return filme;
 	}
 	
 	public List<Filmes> buscarPorNome(String nome) {
-		log.info("Filmes encontrados com o nome digitado: {}", nome);
-		return filmesRepository.findByNomeContainingIgnoreCase(nome);
+		List<Filmes> filmes  = filmesRepository.findByNomeContainingIgnoreCase(nome);
+		log.info("Buscar por nome: '{}'. Filme(s) encontrado(s): {}", nome, filmes);
+		return filmes;
 	}
 	
 	public List<Filmes> buscarPorDataLancamento(LocalDate dataLancamento) {
-		log.info("Filmes encontrados com a data de lançamento digitada: {}", dataLancamento);
-		return filmesRepository.findByDataLancamento(dataLancamento);
+		List<Filmes> filmesData = filmesRepository.findByDataLancamento(dataLancamento);
+		log.info("Buscar por data de lançamento: '{}'. Filme(s) encontrado(s): {}", dataLancamento, filmesData);
+		return filmesData;
 	}
 	
 	public List<Filmes> buscarPorDiretor(String diretor) {
-		log.info("Filmes encontrados do diretor digitado: {}", diretor);
-		return filmesRepository.findByDiretorContainingIgnoreCase(diretor);
+		List<Filmes> filmesDiretor = filmesRepository.findByDiretorContainingIgnoreCase(diretor);
+		log.info("Buscar por diretor: '{}'. Filme(s) encontrado(s): {}", diretor, filmesDiretor);
+		return filmesDiretor;
 	}
 	
 	public List<Filmes> buscarPorGenero(String genero) {
-		log.info("Filmes encontrados do genero digitado: {}", genero);
-		return filmesRepository.findByGeneroContainingIgnoreCase(genero);
+		List<Filmes> filmesGenero = filmesRepository.findByGeneroContainingIgnoreCase(genero);
+		log.info("Buscar por gênero: '{}'. Filme(s) encontrado(s): {}", genero, filmesGenero);
+		return filmesGenero;
 	}
 	
 	public List<Filmes> buscarPorEstoque(int estoque) {
 		//Achei válido por facilitar recarga caso necessária de estoques zerados ou próximos de zerar.
-		log.info("Filmes encontrados com o numero de estoque digitado: {}", estoque);
-		return filmesRepository.findByEstoque(estoque);
+		List<Filmes> filmesEstoque = filmesRepository.findByEstoque(estoque);
+		log.info("Buscar por estoque: '{}'. Filme(s) encontrado(s): {}", estoque, filmesEstoque);
+		return filmesEstoque;
 	}
 	
 	private Filmes atualizarCampo(Long idFilme, Consumer<Filmes> atualizador) {
