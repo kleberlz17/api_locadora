@@ -42,6 +42,10 @@ public class LocacaoDTO {
 		this.devolvido = devolvido;
 		this.quantidade = quantidade;
 	}
+	
+	public LocacaoDTO() {
+		
+	}
 
 	public Long getIdLocacao() {
 		return idLocacao;

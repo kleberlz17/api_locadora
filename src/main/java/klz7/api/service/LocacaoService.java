@@ -62,7 +62,9 @@ public class LocacaoService {
 	}
 	
 	public List<Locacao> buscarLocacoesPorCliente(Long idCliente) {
-		return locacaoRepository.findByClienteId(idCliente);
+		List<Locacao> listaLocacao = locacaoRepository.findByClienteId(idCliente);
+		log.info("Buscar locações por ID do Cliente: '{}'. Lista: {}", idCliente, listaLocacao);
+		return listaLocacao;
 	}
 	
 	private Locacao atualizarCampo(Long idLocacao, Consumer<Locacao> atualizador) {
@@ -89,7 +91,9 @@ public class LocacaoService {
 	}
 	
 	public List<Locacao> buscarHistoricoFilme(Long idFilme){
-		return locacaoRepository.findByFilmesIdFilme(idFilme);
+		List<Locacao> historicoFilme = locacaoRepository.findByFilmesIdFilme(idFilme);
+		log.info("Buscar histórico do filme pelo ID: '{}'. Histórico: {}", idFilme, historicoFilme);
+		return historicoFilme;
 		
 	}
 	
