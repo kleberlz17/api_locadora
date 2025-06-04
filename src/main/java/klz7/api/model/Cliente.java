@@ -3,6 +3,8 @@ package klz7.api.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,7 +18,7 @@ public class Cliente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_cliente", nullable = false)
-	private Long idCliente;
+	private Long id;
 
 	@Column(name = "nome", nullable = false)
 	private String nome;
@@ -37,30 +39,29 @@ public class Cliente {
 	private String endereco;
 
 	@OneToMany(mappedBy = "cliente")
+	@JsonIgnore//Evitar erro StackOverFlow
 	private List<Locacao> locacoes;
 
-	public Cliente(Long idCliente, String nome, LocalDate dataNascimento, String cpf, String telefone, String email,
-			String endereco, List<Locacao> locacoes) {
-		this.idCliente = idCliente;
+	public Cliente(String nome, LocalDate dataNascimento, String cpf, String telefone, String email,
+			String endereco) {
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
 		this.cpf = cpf;
 		this.telefone = telefone;
 		this.email = email;
 		this.endereco = endereco;
-		this.locacoes = locacoes;
 	}
 	
 	public Cliente() {
 		
 	}
 
-	public Long getIdCliente() {
-		return idCliente;
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdCliente(Long idCliente) {
-		this.idCliente = idCliente;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -121,11 +122,11 @@ public class Cliente {
 
 	@Override
 	public String toString() {
-		return "Cliente [idCliente=" + idCliente + ", nome=" + nome + ", dataNascimento=" + dataNascimento + ", cpf="
-				+ cpf + ", telefone=" + telefone + ", email=" + email + ", endereco=" + endereco + ", locacoes="
-				+ locacoes + "]";
+		return "Cliente [id=" + id + ", nome=" + nome + ", dataNascimento=" + dataNascimento + ", cpf=" + cpf
+				+ ", telefone=" + telefone + ", email=" + email + ", endereco=" + endereco + ", locacoes=" + locacoes
+				+ "]";
 	}
-	
+
 	
 
 }

@@ -27,7 +27,7 @@ public class ClienteValidator {
 	 
 	 public boolean cpfJaUsadoPorOutroCliente(Cliente cliente) {
 		 Optional<Cliente> existente = clienteRepository.findByCpfContainingIgnoreCase(cliente.getCpf());
-		 return existente.isPresent() && !existente.get().getIdCliente().equals(cliente.getIdCliente());
+		 return existente.isPresent() && !existente.get().getId().equals(cliente.getId());
 	 }
 	 
 	 public void validarEmail(Cliente cliente) {
@@ -38,7 +38,7 @@ public class ClienteValidator {
 	 
 	 public boolean emailJaUsadoPorOutroCliente(Cliente cliente) {
 		 Optional<Cliente> existente = clienteRepository.findByEmail(cliente.getEmail());
-		 return existente.isPresent() && !existente.get().getIdCliente().equals(cliente.getIdCliente());
+		 return existente.isPresent() && !existente.get().getId().equals(cliente.getId());
 	 }
 	 
 	 public void validarTelefone(Cliente cliente) {
@@ -49,7 +49,7 @@ public class ClienteValidator {
 	 
 	 public boolean telefoneJaUsadoPorOutroCliente(Cliente cliente) {
 		 Optional<Cliente> existente = clienteRepository.findByTelefone(cliente.getTelefone());
-		 return existente.isPresent() && !existente.get().getIdCliente().equals(cliente.getIdCliente());
+		 return existente.isPresent() && !existente.get().getId().equals(cliente.getId());
 	 }
 
 }

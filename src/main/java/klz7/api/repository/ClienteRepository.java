@@ -13,7 +13,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 	
 	Optional<Cliente> findByTelefone(String telefone);
 	
-	Optional<Cliente> findById(Long idCliente);
+	Optional<Cliente> findById(Long id);
 	
 	Optional<Cliente> findByCpfContainingIgnoreCase(String cpf);
 	

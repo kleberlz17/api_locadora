@@ -39,7 +39,7 @@ public class ClienteServiceTest {
 	void setUp() {
 		MockitoAnnotations.openMocks(this);
 		cliente = new Cliente();
-		cliente.setIdCliente(1L);
+		cliente.setId(1L);
 		cliente.setNome("Chris Prince");
 		cliente.setDataNascimento(LocalDate.of(1998, 3, 12 ));
 		cliente.setCpf("11111111111");
@@ -51,7 +51,7 @@ public class ClienteServiceTest {
 	@Test
 	void testSalvarClienteComSucesso() {
 		Cliente cliente = new Cliente();
-		cliente.setIdCliente(2L);
+		cliente.setId(2L);
 		cliente.setNome("Noel Noah");
 		cliente.setDataNascimento(LocalDate.of(1994, 2, 11));
 		cliente.setCpf("22222222222");
@@ -76,7 +76,7 @@ public class ClienteServiceTest {
 		Optional<Cliente> resultadoId = clienteService.buscarPorId(1L);
 		
 		assertTrue(resultadoId.isPresent());
-		assertEquals(cliente.getIdCliente(), resultadoId.get().getIdCliente());
+		assertEquals(cliente.getId(), resultadoId.get().getId());
 		verify(clienteRepository, times(1)).findById(1L);
 	}
 	
@@ -103,13 +103,13 @@ public class ClienteServiceTest {
 	
 	@Test
 	void testAlterarTelefoneComSucesso() {
-		Long idCliente = cliente.getIdCliente();
+		Long id = cliente.getId();
 		String telefoneNovo = "21977777777";
 		
-		when(clienteRepository.findById(idCliente)).thenReturn(Optional.of(cliente));
+		when(clienteRepository.findById(id)).thenReturn(Optional.of(cliente));
 		when(clienteRepository.save(any(Cliente.class))).thenReturn(cliente);
 		
-		Cliente resultado = clienteService.alterarTelefone(idCliente, telefoneNovo);
+		Cliente resultado = clienteService.alterarTelefone(id, telefoneNovo);
 		
 		assertNotNull(resultado);
 		assertEquals(telefoneNovo, resultado.getTelefone());
@@ -119,13 +119,13 @@ public class ClienteServiceTest {
 	
 	@Test
 	void testAlterarEmailComSucesso() {
-		Long idCliente = cliente.getIdCliente();
+		Long id = cliente.getId();
 		String emailNovo = "prince@email.com";
 		
-		when(clienteRepository.findById(idCliente)).thenReturn(Optional.of(cliente));
+		when(clienteRepository.findById(id)).thenReturn(Optional.of(cliente));
 		when(clienteRepository.save(any(Cliente.class))).thenReturn(cliente);
 		
-		Cliente resultado = clienteService.alterarEmail(idCliente, emailNovo);
+		Cliente resultado = clienteService.alterarEmail(id, emailNovo);
 		
 		assertNotNull(resultado);
 		assertEquals(emailNovo, resultado.getEmail());
@@ -135,13 +135,13 @@ public class ClienteServiceTest {
 	
 	@Test
 	void testAlterarEnderecoComSucesso() {
-		Long idCliente = cliente.getIdCliente();
+		Long id = cliente.getId();
 		String enderecoNovo = "Whitechapel - 77";
 		
-		when(clienteRepository.findById(idCliente)).thenReturn(Optional.of(cliente));
+		when(clienteRepository.findById(id)).thenReturn(Optional.of(cliente));
 		when(clienteRepository.save(any(Cliente.class))).thenReturn(cliente);
 		
-		Cliente resultado = clienteService.alterarEndereco(idCliente, enderecoNovo);
+		Cliente resultado = clienteService.alterarEndereco(id, enderecoNovo);
 		
 		assertNotNull(resultado);
 		assertEquals(enderecoNovo, resultado.getEndereco());

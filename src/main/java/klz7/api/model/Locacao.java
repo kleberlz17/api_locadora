@@ -31,7 +31,7 @@ public class Locacao {
 	private Cliente cliente;
 
 	@ManyToOne
-	@JoinColumn(name = "id_filmes", nullable = false)
+	@JoinColumn(name = "id_filme", nullable = false)
 	private Filmes filmes;
 
 	@Column(name = "data_locacao", nullable = false)

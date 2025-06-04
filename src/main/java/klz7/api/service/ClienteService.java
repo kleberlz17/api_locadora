@@ -38,9 +38,9 @@ public class ClienteService {
 		return clienteRepository.save(cliente);
 	}
 	
-	public Optional<Cliente> buscarPorId(Long idCliente) {
-		Optional<Cliente> clienteId = clienteRepository.findById(idCliente);
-		log.info("Buscar por ID: '{}'. Cliente encontrado: {}", idCliente, clienteId);
+	public Optional<Cliente> buscarPorId(Long id) {
+		Optional<Cliente> clienteId = clienteRepository.findById(id);
+		log.info("Buscar por ID: '{}'. Cliente encontrado: {}", id, clienteId);
 		return clienteId;
 	}
 	
@@ -56,51 +56,51 @@ public class ClienteService {
 		return clienteCpf;
 	}
 	
-	private Cliente atualizarCampo(Long idCliente, Consumer<Cliente> atualizador) {
-		Cliente clienteAtualizado = clienteRepository.findById(idCliente)
+	private Cliente atualizarCampo(Long id, Consumer<Cliente> atualizador) {
+		Cliente clienteAtualizado = clienteRepository.findById(id)
 				.orElseThrow(() -> new ClienteNaoEncontradoException("Cliente não encontrado"));
 		atualizador.accept(clienteAtualizado);
 		return clienteRepository.save(clienteAtualizado);
 	}
 	
-	public Cliente alterarTelefone(Long idCliente, String telefoneNovo) {
+	public Cliente alterarTelefone(Long id, String telefoneNovo) {
 		if(telefoneNovo == null || telefoneNovo.isEmpty()) {
 			throw new IllegalArgumentException("O novo telefone não deve ser nulo ou vazio.");
 		}
 		
-		Cliente clienteAtualizado = atualizarCampo(idCliente, cliente -> {
+		Cliente clienteAtualizado = atualizarCampo(id, cliente -> {
 			cliente.setTelefone(telefoneNovo);
 			clienteValidator.validarTelefone(cliente);
 		});
 		
-		log.info("Telefone do cliente com ID {} foi atualizado para: {}", idCliente, clienteAtualizado.getTelefone());
+		log.info("Telefone do cliente com ID {} foi atualizado para: {}", id, clienteAtualizado.getTelefone());
 		return clienteAtualizado;
 	}
 	
-	public Cliente alterarEmail(Long idCliente, String emailNovo) {
+	public Cliente alterarEmail(Long id, String emailNovo) {
 		if(emailNovo == null || emailNovo.isEmpty()) {
 			throw new IllegalArgumentException("O novo email não deve ser nulo ou vazio.");
 		}
 		
-		Cliente clienteAtualizado = atualizarCampo(idCliente, cliente -> {
+		Cliente clienteAtualizado = atualizarCampo(id, cliente -> {
 			cliente.setEmail(emailNovo);
 			clienteValidator.validarEmail(cliente);
 		});
 		
-		log.info("Email do cliente com ID {} foi atualizado para: {}", idCliente, clienteAtualizado.getEmail());
+		log.info("Email do cliente com ID {} foi atualizado para: {}", id, clienteAtualizado.getEmail());
 		return clienteAtualizado;
 	}
 	
-	public Cliente alterarEndereco(Long idCliente, String enderecoNovo) {
+	public Cliente alterarEndereco(Long id, String enderecoNovo) {
 		if(enderecoNovo == null || enderecoNovo.isEmpty()) {
 			throw new IllegalArgumentException("O novo endereço não deve ser nulo ou vazio.");
 		}
 		
-		Cliente clienteAtualizado = atualizarCampo(idCliente, cliente -> {
+		Cliente clienteAtualizado = atualizarCampo(id, cliente -> {
 			cliente.setEndereco(enderecoNovo);
 		});
 		
-		log.info("Endereço do cliente com ID {} foi atualizado para: {}", idCliente, clienteAtualizado.getEndereco());
+		log.info("Endereço do cliente com ID {} foi atualizado para: {}", id, clienteAtualizado.getEndereco());
 		return clienteAtualizado;
 	}
 	

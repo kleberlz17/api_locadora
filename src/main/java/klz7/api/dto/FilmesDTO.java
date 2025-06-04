@@ -39,6 +39,10 @@ public class FilmesDTO {
 		this.genero = genero;
 		this.estoque = estoque;
 	}
+	
+	public FilmesDTO() {
+		
+	}
 
 	public Long getIdFilme() {
 		return idFilme;

@@ -57,7 +57,7 @@ public class LocacaoService {
 		
 		locacaoValidator.validarTudo(locacao);
 		
-		log.info("Locacao do filme {} de ID {} feita pelo cliente {} de ID {}", filmes.getNome(), filmes.getIdFilme(), cliente.getNome(), cliente.getIdCliente());
+		log.info("Locacao do filme {} de ID {} feita pelo cliente {} de ID {}", filmes.getNome(), filmes.getIdFilme(), cliente.getNome(), cliente.getId());
 		return locacaoRepository.save(locacao);
 	}
 	
@@ -148,7 +148,7 @@ public class LocacaoService {
 		locacao.setDataDevolucao(dataDevolucao);
 		
 		log.info("Locação executada com sucesso: {} (ID {}) alugado por {} (ID {}), quantidade: {}.",
-				alugado.getNome(), alugado.getIdFilme(), alugador.getNome(), alugador.getIdCliente(), quantidade);
+				alugado.getNome(), alugado.getIdFilme(), alugador.getNome(), alugador.getId(), quantidade);
 		return locacaoRepository.save(locacao);	
 	}
 	

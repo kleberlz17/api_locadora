@@ -66,7 +66,7 @@ public class LocacaoServiceTest {
 		filmes.setEstoque(1);
 		
 		cliente = new Cliente();
-		cliente.setIdCliente(10L);
+		cliente.setId(10L);
 		cliente.setNome("Chris Prince");
 		cliente.setDataNascimento(LocalDate.of(1998, 3, 12 ));
 		cliente.setCpf("11111111111");

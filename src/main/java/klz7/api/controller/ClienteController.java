@@ -42,16 +42,16 @@ public class ClienteController {
 		Cliente cliente = clienteConverter.dtoParaEntidade(clienteDTO);
 		Cliente clienteSalvo = clienteService.salvar(cliente);
 		
-		URI uri = URI.create("/clientes/" + clienteSalvo.getIdCliente());
+		URI uri = URI.create("/clientes/" + clienteSalvo.getId());
 		
-		log.info("Cliente salvo com sucesso. ID gerado: {}", clienteSalvo.getIdCliente());
+		log.info("Cliente salvo com sucesso. ID gerado: {}", clienteSalvo.getId());
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@GetMapping("/{idCliente}")
-	public ResponseEntity<Cliente> buscarPorId(@PathVariable Long idCliente) {
+	@GetMapping("/{id}")
+	public ResponseEntity<Cliente> buscarPorId(@PathVariable Long id) {
 		log.info("Buscando cliente pelo ID no sistema...");
-		Optional<Cliente> cliente = clienteService.buscarPorId(idCliente);
+		Optional<Cliente> cliente = clienteService.buscarPorId(id);
 		
 		if (cliente.isPresent()) {
 			log.info("Cliente encontrado pelo ID com sucesso.");
@@ -87,12 +87,12 @@ public class ClienteController {
 		}
 	}
 	
-	@PutMapping("/{idCliente}/novoTelefone")
-	public ResponseEntity<Cliente> alterarTelefone(@PathVariable Long idCliente, @RequestBody @Valid NovoTelefoneDTO novoTelefoneDTO) {
-		log.info("Iniciando alteração de telefone do cliente de ID {} no sistema...", idCliente);
+	@PutMapping("/{id}/novoTelefone")
+	public ResponseEntity<Cliente> alterarTelefone(@PathVariable Long id, @RequestBody @Valid NovoTelefoneDTO novoTelefoneDTO) {
+		log.info("Iniciando alteração de telefone do cliente de ID {} no sistema...", id);
 		
 		try {
-			Cliente telefoneAlterado = clienteService.alterarTelefone(idCliente, novoTelefoneDTO.getTelefone());
+			Cliente telefoneAlterado = clienteService.alterarTelefone(id, novoTelefoneDTO.getTelefone());
 			
 			log.info("Telefone do cliente foi alterado com sucesso.");
 			return ResponseEntity.ok(telefoneAlterado);
@@ -103,12 +103,12 @@ public class ClienteController {
 		}	
 	}
 	
-	@PutMapping("/{idCliente}/novoEmail")
-	public ResponseEntity<Cliente> alterarEmail(@PathVariable Long idCliente, @RequestBody @Valid NovoEmailDTO novoEmailDTO) {
-		log.info("Iniciando alteração de email do cliente de ID {} no sistema...", idCliente);
+	@PutMapping("/{id}/novoEmail")
+	public ResponseEntity<Cliente> alterarEmail(@PathVariable Long id, @RequestBody @Valid NovoEmailDTO novoEmailDTO) {
+		log.info("Iniciando alteração de email do cliente de ID {} no sistema...", id);
 		
 		try {
-			Cliente emailAlterado = clienteService.alterarEmail(idCliente, novoEmailDTO.getEmail());
+			Cliente emailAlterado = clienteService.alterarEmail(id, novoEmailDTO.getEmail());
 			
 			log.info("Email do cliente foi alterado com sucesso.");
 			return ResponseEntity.ok(emailAlterado);
@@ -119,12 +119,12 @@ public class ClienteController {
 		}
 	}
 	
-	@PutMapping("/{idCliente}/novoEndereco")
-	public ResponseEntity<Cliente> alterarEndereco(@PathVariable Long idCliente, @RequestBody @Valid NovoEnderecoDTO novoEnderecoDTO) {
-		log.info("Iniciando alteração de endereço do cliente de ID {} no sistema...", idCliente);
+	@PutMapping("/{id}/novoEndereco")
+	public ResponseEntity<Cliente> alterarEndereco(@PathVariable Long id, @RequestBody @Valid NovoEnderecoDTO novoEnderecoDTO) {
+		log.info("Iniciando alteração de endereço do cliente de ID {} no sistema...", id);
 	
 		try { 
-			Cliente enderecoAlterado = clienteService.alterarEndereco(idCliente, novoEnderecoDTO.getEndereco());
+			Cliente enderecoAlterado = clienteService.alterarEndereco(id, novoEnderecoDTO.getEndereco());
 			
 			log.info("Endereço do cliente foi alterado com sucesso.");
 			return ResponseEntity.ok(enderecoAlterado);

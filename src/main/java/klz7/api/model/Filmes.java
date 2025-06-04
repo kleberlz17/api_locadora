@@ -15,7 +15,7 @@ public class Filmes {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_filme", nullable = false)
+	@Column(name = "id_filmes", nullable = false)
 	private Long idFilme;
 
 	@Column(name = "nome", nullable = false)
@@ -30,20 +30,17 @@ public class Filmes {
 	@Column(name = "genero", nullable = false)
 	private String genero;
 
-	@OneToMany(mappedBy = "filme")
+	@OneToMany(mappedBy = "filmes")
 	private List<Locacao> locacoes;
 
 	@Column(name = "estoque", nullable = false)
 	private int estoque;
 
-	public Filmes(Long idFilme, String nome, LocalDate dataLancamento, String diretor, String genero,
-			List<Locacao> locacoes, int estoque) {
-		this.idFilme = idFilme;
+	public Filmes(String nome, LocalDate dataLancamento, String diretor, String genero, int estoque) {
 		this.nome = nome;
 		this.dataLancamento = dataLancamento;
 		this.diretor = diretor;
 		this.genero = genero;
-		this.locacoes = locacoes;
 		this.estoque = estoque;
 	}
 	

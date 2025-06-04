@@ -127,7 +127,7 @@ public class FilmesController {
 		}
 	}
 	
-	@PutMapping("{idFilme}/novoEstoque")
+	@PutMapping("/{idFilme}/novoEstoque")
 	public ResponseEntity<Filmes> alterarEstoque (@PathVariable Long idFilme, @RequestBody @Valid NovoEstoqueDTO novoEstoqueDTO) {
 		log.info("Iniciando alteração do estoque do filme de ID {} no sistema...", idFilme);
 		
@@ -143,7 +143,7 @@ public class FilmesController {
 		}	
 	}
 	
-	@PutMapping("{idFilme}/novaDataLancamento")
+	@PutMapping("/{idFilme}/novaDataLancamento")
 	public ResponseEntity<Filmes> alterarDataLancamento(@PathVariable Long idFilme, @RequestBody @Valid NovaDataLancamentoDTO novaDataLancamentoDTO) {
 		log.info("Iniciando alteração da data de lançamento do filme de ID {} no sistema...", idFilme);
 		
@@ -159,7 +159,7 @@ public class FilmesController {
 		}
 	}
 	
-	@PutMapping("{idFilme}/novoNomeFilme")
+	@PutMapping("/{idFilme}/novoNomeFilme")
 	public ResponseEntity<Filmes> alterarNomeFilme(@PathVariable Long idFilme, @RequestBody @Valid NovoNomeFilmeDTO novoNomeFilmeDTO) {
 		log.info("Iniciando alteração do nome do filme de ID {} no sistema...", idFilme);
 		

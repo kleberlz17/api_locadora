@@ -118,7 +118,7 @@ public class FilmesService {
 		
 		Filmes filmesAtualizado = atualizarCampo(idFilme, filmes -> {
 			filmes.setNome(nomeNovo);
-			filmesValidator.validarDuplicidadeNome(nomeNovo);
+			filmesValidator.validarDuplicidadeNome(nomeNovo, idFilme);
 		});
 		
 		log.info("Nome do filme com o ID {} foi atualizado para: {}", idFilme, filmesAtualizado.getNome());

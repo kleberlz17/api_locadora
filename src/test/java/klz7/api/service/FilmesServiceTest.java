@@ -190,7 +190,7 @@ public class FilmesServiceTest {
 		
 		assertNotNull(resultado);
 		assertEquals(nomeNovo, resultado.getNome());
-		verify(filmesValidator).validarDuplicidadeNome(nomeNovo);
+		verify(filmesValidator).validarDuplicidadeNome(nomeNovo, idFilme);
 		verify(filmesRepository).save(filme1);
 	}
 }

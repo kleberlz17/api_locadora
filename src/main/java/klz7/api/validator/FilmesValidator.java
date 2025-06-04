@@ -36,15 +36,15 @@ public class FilmesValidator {
 		}
 	}
 	
-	public void validarDuplicidadeNome(String nome) {
+	public void validarDuplicidadeNome(String nome, Long idAtual) {
 		Optional<Filmes> existente = filmesRepository.findByNomeIgnoreCase(nome.trim());//trim pra evitar problemas com espaços em branco.
-		if (existente.isPresent()) {
+		if (existente.isPresent() && !existente.get().getIdFilme().equals(idAtual)) {
 			throw new NomeFilmeDuplicadoException("Já existe um filme cadastrado com esse nome.");
 		}
 	}
 	
 	public void validarTudo(Filmes filmes) { // Esse é pro salvar filme.
-		validarDuplicidadeNome(filmes.getNome());
+		validarDuplicidadeNome(filmes.getNome(), filmes.getIdFilme());
 		validarEstoque(filmes.getEstoque());
 		validarDataLancamento(filmes.getDataLancamento());
 	}

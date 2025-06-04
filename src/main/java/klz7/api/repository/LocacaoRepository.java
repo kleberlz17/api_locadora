@@ -13,7 +13,7 @@ public interface LocacaoRepository extends JpaRepository<Locacao, Long> {
 
 	Optional<Locacao> findById(Long idLocacao);
 	
-	List<Locacao> findByClienteId(Long idCliente);
+	List<Locacao> findByClienteId(Long id);
 	
 	List<Locacao> findByCliente(Cliente cliente);
 	

@@ -14,7 +14,7 @@ public class ClienteDTO {
 
 	@Min(1)
 	@Max(999999)
-	private Long idCliente;
+	private Long id;
 
 	@NotBlank(message = "O nome do cliente não deve estar em branco.")
 	@Size(min = 3, max = 100, message = "Fora do tamanho padrão permitido.")
@@ -37,9 +37,9 @@ public class ClienteDTO {
 	@Size(min = 5, max = 100, message = "Fora do tamanho padrão permitido.")
 	private String endereco;
 
-	public ClienteDTO(Long idCliente, String nome, LocalDate dataNascimento, String cpf, String telefone, String email,
+	public ClienteDTO(Long id, String nome, LocalDate dataNascimento, String cpf, String telefone, String email,
 			String endereco) {
-		this.idCliente = idCliente;
+		this.id = id;
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
 		this.cpf = cpf;
@@ -47,13 +47,17 @@ public class ClienteDTO {
 		this.email = email;
 		this.endereco = endereco;
 	}
-
-	public Long getIdCliente() {
-		return idCliente;
+	
+	public ClienteDTO() {
+		
 	}
 
-	public void setIdCliente(Long idCliente) {
-		this.idCliente = idCliente;
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -104,5 +108,6 @@ public class ClienteDTO {
 		this.endereco = endereco;
 	}
 
+	
 	
 }

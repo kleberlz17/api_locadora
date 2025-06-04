@@ -43,7 +43,7 @@ public class LocacaoConverter {
 	public LocacaoDTO entidadeParaDto(Locacao entidade) {
 		return new LocacaoDTO(
 				entidade.getIdLocacao(),
-				entidade.getCliente().getIdCliente(), //Pega id do cliente
+				entidade.getCliente().getId(), //Pega id do cliente
 				entidade.getFilmes().getIdFilme(), //Pega id do filme
 				entidade.getDataLocacao(),
 				entidade.getDataDevolucao(),

@@ -10,7 +10,7 @@ public class ClienteConverter {
 	
 	public Cliente dtoParaEntidade(ClienteDTO dto) {
 		Cliente cliente = new Cliente();
-		cliente.setIdCliente(dto.getIdCliente());
+		cliente.setId(dto.getId());
 		cliente.setNome(dto.getNome());
 		cliente.setDataNascimento(dto.getDataNascimento());
 		cliente.setCpf(dto.getCpf());
@@ -22,7 +22,7 @@ public class ClienteConverter {
 	
 	public ClienteDTO entidadeParaDto(Cliente entidade) {
 		return new ClienteDTO(
-				entidade.getIdCliente(),
+				entidade.getId(),
 				entidade.getNome(),
 				entidade.getDataNascimento(),
 				entidade.getCpf(),
