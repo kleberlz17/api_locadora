@@ -70,9 +70,7 @@ public class ClienteControllerIntegrationTest {
 				"Avenida Champs-Élysées - 21");
 		
 		Cliente clienteSalvo2 = clienteRepository.save(cliente2);
-		id2 = clienteSalvo2.getId();
-		
-		
+		id2 = clienteSalvo2.getId();	
 	}
 	
 	@Test

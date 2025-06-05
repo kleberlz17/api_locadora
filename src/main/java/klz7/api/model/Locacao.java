@@ -45,4 +45,16 @@ public class Locacao {
 
 	@Column(name = "quantidade", nullable = false)
 	private int quantidade;
+	
+	public Locacao(Cliente cliente, Filmes filmes, LocalDate dataLocacao,
+			LocalDate dataDevolucao, boolean devolvido, int quantidade) {
+		this.cliente = cliente;
+		this.filmes = filmes;
+		this.dataLocacao = dataLocacao;
+		this.dataDevolucao = dataDevolucao;
+		this.devolvido = devolvido;
+		this.quantidade = quantidade;
+	}
 }
+
+

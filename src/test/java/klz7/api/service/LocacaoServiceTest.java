@@ -88,7 +88,7 @@ public class LocacaoServiceTest {
 	void testSalvarLocacaoComSucesso() {
 		LocacaoDTO locacaoDTO = new LocacaoDTO();
 		locacaoDTO.setIdLocacao(2L);
-		locacaoDTO.setIdCliente(10L);
+		locacaoDTO.setId(10L);
 		locacaoDTO.setIdFilmes(2L);;
 		locacaoDTO.setDataLocacao(LocalDate.now());
 		locacaoDTO.setDataDevolucao(LocalDate.of(2025, 6, 3));

@@ -40,7 +40,7 @@ public class LocacaoService {
 	}
 
 	public Locacao salvar(LocacaoDTO dto) {
-		Cliente cliente = clienteRepository.findById(dto.getIdCliente())
+		Cliente cliente = clienteRepository.findById(dto.getId())
 				.orElseThrow(() -> new ClienteNaoEncontradoException("Cliente não encontrado."));
 		
 		Filmes filmes = filmesRepository.findById(dto.getIdFilmes())

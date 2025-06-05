@@ -14,7 +14,7 @@ public class LocacaoDTO {
 	
 	@Min(1)
 	@Max(999999)
-	private Long idCliente;
+	private Long id;
 	
 	@Min(1)
 	@Max(999999)
@@ -32,15 +32,23 @@ public class LocacaoDTO {
 	@Min(value = 1, message = "A quantidade deve ser no mínimo 1.")
 	private int quantidade;
 
-	public LocacaoDTO(Long idLocacao, Long idCliente, Long idFilmes, LocalDate dataLocacao, LocalDate dataDevolucao, boolean devolvido,
+	public LocacaoDTO(Long idLocacao, Long id, Long idFilmes, LocalDate dataLocacao, LocalDate dataDevolucao, boolean devolvido,
 			int quantidade) {
 		this.idLocacao = idLocacao;
-		this.idCliente = idCliente;
+		this.id = id;
 		this.idFilmes = idFilmes;
 		this.dataLocacao = dataLocacao;
 		this.dataDevolucao = dataDevolucao;
 		this.devolvido = devolvido;
 		this.quantidade = quantidade;
+	}
+	
+	public LocacaoDTO(Long id, Long idFilmes, int quantidade, LocalDate dataDevolucao) { // Pro teste controller de redução de estoque. 
+		this.id = id;
+		this.idFilmes = idFilmes;
+		this.quantidade = quantidade;
+		this.dataDevolucao = dataDevolucao;
+		
 	}
 	
 	public LocacaoDTO() {
@@ -55,12 +63,12 @@ public class LocacaoDTO {
 		this.idLocacao = idLocacao;
 	}
 
-	public Long getIdCliente() {
-		return idCliente;
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdCliente(Long idCliente) {
-		this.idCliente = idCliente;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Long getIdFilmes() {
@@ -103,6 +111,7 @@ public class LocacaoDTO {
 		this.quantidade = quantidade;
 	}
 
+	
 	
 
 	

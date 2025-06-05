@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/locadora_test
-    username: 
-    password: 
+    username: postgres
+    password: kl290499
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

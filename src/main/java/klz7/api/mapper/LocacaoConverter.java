@@ -25,7 +25,7 @@ public class LocacaoConverter {
 		Locacao locacao = new Locacao();
 		locacao.setIdLocacao(dto.getIdLocacao());
 		
-		Cliente cliente = clienteRepository.findById(dto.getIdCliente())
+		Cliente cliente = clienteRepository.findById(dto.getId())
 				.orElseThrow(() -> new ClienteNaoEncontradoException("Cliente não encontrado"));
 		locacao.setCliente(cliente);
 		

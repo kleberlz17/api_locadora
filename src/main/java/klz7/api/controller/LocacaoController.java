@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
+import klz7.api.dto.AluguelRequestDTO;
 import klz7.api.dto.DevolucaoExtendidaDTO;
 import klz7.api.dto.LocacaoDTO;
 import klz7.api.mapper.LocacaoConverter;
@@ -46,11 +47,11 @@ public class LocacaoController {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@GetMapping("/{idCliente}/locacoes")
-	public ResponseEntity<List<Locacao>> buscarLocacaoPorCliente (@PathVariable Long idCliente) {
-		log.info("Buscando locações de cliente pelo ID {} no sistema...", idCliente);
+	@GetMapping("/{id}/locacoes")
+	public ResponseEntity<List<Locacao>> buscarLocacaoPorCliente (@PathVariable Long id) {
+		log.info("Buscando locações de cliente pelo ID {} no sistema...", id);
 		
-		List<Locacao> locacao = locacaoService.buscarLocacoesPorCliente(idCliente);
+		List<Locacao> locacao = locacaoService.buscarLocacoesPorCliente(id);
 		
 		if (locacao.isEmpty()) {
 			return ResponseEntity.notFound().build();
@@ -101,14 +102,14 @@ public class LocacaoController {
 	}
 	
 	@PostMapping("/alugar")
-	public ResponseEntity<LocacaoDTO> alugarFilme (@RequestBody @Valid LocacaoDTO locacaoDTO) {
-		log.info("Iniciando locação de filme de ID {} pelo cliente de ID {} no sistema...", locacaoDTO.getIdFilmes(), locacaoDTO.getIdCliente());
+	public ResponseEntity<LocacaoDTO> alugarFilme (@RequestBody @Valid AluguelRequestDTO aluguelDTO) {
+		log.info("Iniciando locação de filme de ID {} pelo cliente de ID {} no sistema...", aluguelDTO.getIdFilmes(), aluguelDTO.getId());
 		
 		Locacao alugando = locacaoService.alugarFilme(
-				locacaoDTO.getIdCliente(),
-				locacaoDTO.getIdFilmes(),
-				locacaoDTO.getQuantidade(),
-				locacaoDTO.getDataDevolucao());
+				aluguelDTO.getId(),
+				aluguelDTO.getIdFilmes(),
+				aluguelDTO.getQuantidade(),
+				aluguelDTO.getDataDevolucao());
 		
 		LocacaoDTO respostaDTO = locacaoConverter.entidadeParaDto(alugando);
 		
