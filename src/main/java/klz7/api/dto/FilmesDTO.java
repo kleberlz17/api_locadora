@@ -1,6 +1,8 @@
 package klz7.api.dto;
 
 import java.time.LocalDate;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -15,20 +17,25 @@ public class FilmesDTO {
 
 	@NotBlank(message = "O nome do filme não deve estar em branco.")
 	@Size(min = 1, max = 100, message = "Nome fora do tamanho padrão permitido.")
+	@Schema(name = "nome", description = "Nome completo do filme")
 	private String nome;
 
 	@NotNull(message = "A data de lançamento é obrigatória.") // Pra facilitar busca por data de lançamento(ex = filmes
 																// de 2020)
+	@Schema(name = "dataLancamento", description = "Data de lançamento no formato AAAA-MM-DD")
 	private LocalDate dataLancamento;
 
 	@NotBlank(message = "O nome do diretor não deve estar em branco.") // Pra facilitar busca por nome do diretor.
 	@Size(min = 3, max = 100, message = "Nome fora do tamanho padrão permitido.")
+	@Schema(name = "diretor", description = "Nome do diretor")
 	private String diretor;
 
 	@NotBlank(message = "O genero do filme não deve estar em branco.") // Pra facilitar busca por genero.
 	@Size(min = 3, max = 50, message = "Genero fora do tamanho padrão permitido.")
+	@Schema(name = "genero", description = "Gênero do filme")
 	private String genero;
 
+	@Schema(name = "estoque", description = "Estoque do filme em número")
 	private int estoque;
 
 	public FilmesDTO(Long idFilme, String nome, LocalDate dataLancamento, String diretor, String genero, int estoque) {

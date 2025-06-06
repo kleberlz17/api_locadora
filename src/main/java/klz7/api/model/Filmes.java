@@ -3,6 +3,7 @@ package klz7.api.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,21 +20,26 @@ public class Filmes {
 	private Long idFilme;
 
 	@Column(name = "nome", nullable = false)
+	@Schema(description = "Nome completo do filme", example = "The Batman")
 	private String nome;
 
 	@Column(name = "data_lancamento", nullable = false)
+	@Schema(description = "Data de lançamento", example = "2019-03-03")
 	private LocalDate dataLancamento;
 
 	@Column(name = "diretor", nullable = false)
+	@Schema(description = "Nome do diretor", example = "Matt Reeves")
 	private String diretor;
 
 	@Column(name = "genero", nullable = false)
+	@Schema(description = "Gênero do filme", example = "Super-heróis")
 	private String genero;
 
 	@OneToMany(mappedBy = "filmes")
 	private List<Locacao> locacoes;
 
 	@Column(name = "estoque", nullable = false)
+	@Schema(description = "Estoque do filme", example = "2")
 	private int estoque;
 
 	public Filmes(String nome, LocalDate dataLancamento, String diretor, String genero, int estoque) {

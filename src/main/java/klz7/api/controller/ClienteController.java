@@ -12,7 +12,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import klz7.api.dto.ClienteDTO;
 import klz7.api.dto.NovoEmailDTO;
@@ -26,6 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/clientes")
 @Slf4j
+@Tag(name = "Clientes")
 public class ClienteController {
 	
 	private final ClienteService clienteService;
@@ -37,6 +44,13 @@ public class ClienteController {
 	}
 	
 	@PostMapping
+	@Operation(summary = "Salvar", description = "Cadastrar novo cliente")
+	@ApiResponses({
+		@ApiResponse(responseCode = "201", description = "Cadastrado com sucesso",
+				content = @Content(mediaType = "application/json", schema = @Schema(implementation = Cliente.class))),
+		@ApiResponse(responseCode = "422", description = "Erro de validação"),
+		@ApiResponse(responseCode = "409", description = "Cliente já cadastrado")
+	})
 	public ResponseEntity<Object> salvar (@RequestBody @Valid ClienteDTO clienteDTO) {
 		log.info("Iniciando salvamento de novo cliente...");
 		Cliente cliente = clienteConverter.dtoParaEntidade(clienteDTO);
@@ -49,6 +63,12 @@ public class ClienteController {
 	}
 	
 	@GetMapping("/{id}")
+	@Operation(summary = "Buscar por ID", description = "Retorna os dados do cliente pelo ID")
+	@ApiResponses({
+		@ApiResponse(responseCode = "200", description = "Cliente encontrado com sucesso",
+				content = @Content(mediaType = "application/json", schema = @Schema(implementation = Cliente.class))),
+		@ApiResponse(responseCode = "404", description = "Cliente não encontrado")
+	})
 	public ResponseEntity<Cliente> buscarPorId(@PathVariable Long id) {
 		log.info("Buscando cliente pelo ID no sistema...");
 		Optional<Cliente> cliente = clienteService.buscarPorId(id);
@@ -62,6 +82,12 @@ public class ClienteController {
 	}
 
 	@GetMapping("/nome/{nome}")
+	@Operation(summary = "Buscar por nome", description = "Retorna os dados do cliente pelo nome")
+	@ApiResponses({
+		@ApiResponse(responseCode = "200", description = "Clientes encontrados com sucesso",
+				content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Cliente.class)))),
+		@ApiResponse(responseCode = "404", description = "Cliente não encontrado")
+	})
 	public ResponseEntity<List<Cliente>> buscarPorNome(@PathVariable String nome) {
 		log.info("Buscando cliente pelo nome no sistema...");
 		List<Cliente> clienteNome = clienteService.buscarPorNome(nome);
@@ -75,6 +101,12 @@ public class ClienteController {
 	}
 	
 	@GetMapping("/cpf/{cpf}")
+	@Operation(summary = "Buscar por CPF", description = "Retorna os dados do cliente pelo CPF")
+	@ApiResponses({
+		@ApiResponse(responseCode = "200", description = "Cliente encontrado com sucesso",
+				content = @Content(mediaType = "application/json", schema = @Schema(implementation = Cliente.class))),
+		@ApiResponse(responseCode = "404", description = "Cliente não encontrado")
+	})
 	public ResponseEntity<Cliente> buscarPorCpf(@PathVariable String cpf) {
 		log.info("Buscando cliente pelo CPF no sistema...");
 		Optional<Cliente> clienteCpf = clienteService.buscarPorCpf(cpf);
@@ -88,6 +120,14 @@ public class ClienteController {
 	}
 	
 	@PutMapping("/{id}/novoTelefone")
+	@Operation(summary = "Alterar telefone", description = "Altera o telefone do cliente pelo ID")
+	@ApiResponses({
+		@ApiResponse(responseCode = "200", description = "Telefone alterado com sucesso",
+				content = @Content(mediaType = "application/json", schema = @Schema(implementation = Cliente.class))),
+		@ApiResponse(responseCode = "400", description = "Telefone não deve ser nulo ou vazio"),
+		@ApiResponse(responseCode = "404", description = "Cliente não encontrado"),
+		@ApiResponse(responseCode = "409", description = "Telefone já cadastrado no sistema")
+	})
 	public ResponseEntity<Cliente> alterarTelefone(@PathVariable Long id, @RequestBody @Valid NovoTelefoneDTO novoTelefoneDTO) {
 		log.info("Iniciando alteração de telefone do cliente de ID {} no sistema...", id);
 		
@@ -104,6 +144,14 @@ public class ClienteController {
 	}
 	
 	@PutMapping("/{id}/novoEmail")
+	@Operation(summary = "Alterar email", description =  "Altera o email do cliente pelo ID")
+	@ApiResponses({
+		@ApiResponse(responseCode = "200", description = "Email alterado com sucesso",
+				content = @Content(mediaType = "application/json", schema = @Schema(implementation = Cliente.class))),
+		@ApiResponse(responseCode = "400", description = "Email não deve ser nulo ou vazio"),
+		@ApiResponse(responseCode = "404", description = "Cliente não encontrado"),
+		@ApiResponse(responseCode = "409", description = "Email já cadastrado no sistema")
+	})
 	public ResponseEntity<Cliente> alterarEmail(@PathVariable Long id, @RequestBody @Valid NovoEmailDTO novoEmailDTO) {
 		log.info("Iniciando alteração de email do cliente de ID {} no sistema...", id);
 		
@@ -120,6 +168,13 @@ public class ClienteController {
 	}
 	
 	@PutMapping("/{id}/novoEndereco")
+	@Operation(summary = "Alterar endereço", description = "Altera o endereço do cliente pelo ID")
+	@ApiResponses({
+		@ApiResponse(responseCode = "200", description = "Endereço alterado com sucesso",
+				content = @Content(mediaType = "application/json", schema = @Schema(implementation = Cliente.class))),
+		@ApiResponse(responseCode = "400", description = "Endereço não deve ser nulo ou vazio"),
+		@ApiResponse(responseCode = "404", description = "Cliente não encontrado")
+	})
 	public ResponseEntity<Cliente> alterarEndereco(@PathVariable Long id, @RequestBody @Valid NovoEnderecoDTO novoEnderecoDTO) {
 		log.info("Iniciando alteração de endereço do cliente de ID {} no sistema...", id);
 	

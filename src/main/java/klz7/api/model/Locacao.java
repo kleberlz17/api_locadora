@@ -2,6 +2,7 @@ package klz7.api.model;
 
 import java.time.LocalDate;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,22 +29,28 @@ public class Locacao {
 
 	@ManyToOne
 	@JoinColumn(name = "id_cliente", nullable = false)
+	@Schema(description = "Cliente", example = "cliente")
 	private Cliente cliente;
 
 	@ManyToOne
 	@JoinColumn(name = "id_filme", nullable = false)
+	@Schema(description = "Filmes", example = "filmes")
 	private Filmes filmes;
 
 	@Column(name = "data_locacao", nullable = false)
+	@Schema(description = "Data da locação", example = "2025-06-06")
 	private LocalDate dataLocacao;
 
 	@Column(name = "data_devolucao", nullable = false)
+	@Schema(description = "Data da devolução", example = "2025-06-12")
 	private LocalDate dataDevolucao;
 
 	@Column(name = "devolvido", nullable = false)
+	@Schema(description = "Devolvido", example = "false")
 	private boolean devolvido;
 
 	@Column(name = "quantidade", nullable = false)
+	@Schema(description = "Quantidade", example = "1")
 	private int quantidade;
 	
 	public Locacao(Cliente cliente, Filmes filmes, LocalDate dataLocacao,

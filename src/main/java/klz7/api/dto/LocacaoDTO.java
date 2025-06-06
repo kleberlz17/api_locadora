@@ -2,6 +2,7 @@ package klz7.api.dto;
 
 import java.time.LocalDate;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -21,15 +22,19 @@ public class LocacaoDTO {
 	private Long idFilmes;
 
 	@NotNull(message = "A data da locação é obrigatória.")
+	@Schema(name = "dataLocacao", description = "Data de locação no formato AAAA-MM-DD")
 	private LocalDate dataLocacao;
 
 	@NotNull(message = "A data da devolução é obrigatória.")
+	@Schema(name = "dataDevolucao", description = "Data de devolução no formato AAAA-MM-DD")
 	private LocalDate dataDevolucao;
 
+	@Schema(name = "devolvido", description = "Devolvido entre true ou false")
 	private boolean devolvido;
 
 	@NotNull(message = "A quantidade é obrigatória.")
 	@Min(value = 1, message = "A quantidade deve ser no mínimo 1.")
+	@Schema(name = "quantidade", description = "Quantas unidades quer alugar")
 	private int quantidade;
 
 	public LocacaoDTO(Long idLocacao, Long id, Long idFilmes, LocalDate dataLocacao, LocalDate dataDevolucao, boolean devolvido,

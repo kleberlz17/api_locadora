@@ -14,6 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import klz7.api.dto.FilmesDTO;
 import klz7.api.dto.NovaDataLancamentoDTO;
@@ -27,6 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/filmes")
 @Slf4j
+@Tag(name = "Filmes")
 public class FilmesController {
 	
 	private final FilmesService filmesService;
@@ -38,6 +46,15 @@ public class FilmesController {
 	}
 	
 	@PostMapping
+	@Operation(summary = "Salvar", description = "Cadastrar novo filme")
+	@ApiResponses({
+		@ApiResponse(responseCode = "201", description = "Cadastrado com sucesso",
+				content = @Content(mediaType = "application/json", schema = @Schema(implementation = Filmes.class))),
+		@ApiResponse(responseCode = "400", description = "Filme não deve ser nulo ou vazio"),
+		@ApiResponse(responseCode = "400", description = "Estoque do filme não deve ser negativo"),
+		@ApiResponse(responseCode = "400", description = "Data de lançamento não deve estar em mês ou ano futuro"),
+		@ApiResponse(responseCode = "409", description = "Nome do filme não deve ser duplicado")
+	})
 	public ResponseEntity<Object> salvar (@RequestBody @Valid FilmesDTO filmesDTO) {
 		log.info("Iniciando salvamento de novo filme no sistema...");
 		Filmes filmes = filmesConverter.dtoParaEntidade(filmesDTO);
@@ -50,6 +67,12 @@ public class FilmesController {
 	}
 	
 	@GetMapping("/{idFilme}")
+	@Operation(summary = "Buscar por ID", description = "Buscar filme por ID")
+	@ApiResponses({
+		@ApiResponse(responseCode = "200", description = "Filme encontrado com sucesso",
+				content = @Content(mediaType = "application/json", schema = @Schema(implementation = Filmes.class))),
+		@ApiResponse(responseCode = "404", description = "Filme não encontrado")
+	})
 	public ResponseEntity<Filmes> buscarPorId (@PathVariable Long idFilme) {
 		log.info("Buscando filme pelo ID no sistema...");
 		Optional<Filmes> filme = filmesService.buscarPorId(idFilme);
@@ -63,6 +86,12 @@ public class FilmesController {
 	}
 	
 	@GetMapping("/nome/{nome}")
+	@Operation(summary = "Buscar por nome", description = "Retorna os dados do(s) filme(s) pelo nome")
+	@ApiResponses({
+		@ApiResponse(responseCode = "200", description = "Filme(s) encontrado(s) com sucesso",
+				content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Filmes.class)))),
+		@ApiResponse(responseCode = "404", description = "Filme(s) não encontrado(s)")
+	})
 	public ResponseEntity<List<Filmes>> buscarPorNome (@PathVariable String nome) {
 		log.info("Buscando o(s) filme(s) pelo nome no sistema...");
 		List<Filmes> filmesNome = filmesService.buscarPorNome(nome);
@@ -76,6 +105,12 @@ public class FilmesController {
 	}
 	
 	@GetMapping("/dataLancamento/{dataLancamento}")
+	@Operation(summary = "Buscar por data de lançamento", description = "Retorna os dados do(s) filme(s) pela data de lançamento")
+	@ApiResponses({
+		@ApiResponse(responseCode = "200", description = "Filme(s) encontrado(s) com sucesso",
+				content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Filmes.class)))),
+		@ApiResponse(responseCode = "404", description = "Filme(s) não encontrado(s)")
+	})
 	public ResponseEntity<List<Filmes>> buscarPorDataLancamento (@PathVariable LocalDate dataLancamento) {
 		log.info("Buscando o(s) filme(s) pela data de lançamento no sistema...");
 		List<Filmes> filmesDataLancamento = filmesService.buscarPorDataLancamento(dataLancamento);
@@ -89,6 +124,12 @@ public class FilmesController {
 	}
 	
 	@GetMapping("/diretor/{diretor}")
+	@Operation(summary = "Buscar por diretor", description = "Retorna os dados do(s) filme(s) pelo nome do diretor")
+	@ApiResponses({
+		@ApiResponse(responseCode = "200", description = "Filme(s) encontrado(s) com sucesso",
+				content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Filmes.class)))),
+		@ApiResponse(responseCode = "404", description = "Filme(s) não encontrado(s)")
+	})
 	public ResponseEntity<List<Filmes>> buscarPorDiretor (@PathVariable String diretor) {
 		log.info("Buscando o(s) filme(s) pelo nome do diretor no sistema...");
 		List<Filmes> filmesDiretor = filmesService.buscarPorDiretor(diretor);
@@ -102,6 +143,12 @@ public class FilmesController {
 	}
 	
 	@GetMapping("/genero/{genero}")
+	@Operation(summary = "Buscar por gênero", description = "Retorna os dados do(s) filme(s) pelo gênero do filme")
+	@ApiResponses({
+		@ApiResponse(responseCode = "200", description = "Filme(s) encontrado(s) com sucesso",
+				content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Filmes.class)))),
+		@ApiResponse(responseCode = "404", description = "Filme(s) não encontrado(s)")
+	})
 	public ResponseEntity<List<Filmes>> buscarPorGenero (@PathVariable String genero) {
 		log.info("Buscando o(s) filme(s) pelo genero no sistema...");
 		List<Filmes> filmesGenero = filmesService.buscarPorGenero(genero);
@@ -115,6 +162,12 @@ public class FilmesController {
 	}
 	
 	@GetMapping("/estoque/{estoque}")
+	@Operation(summary = "Buscar por estoque", description = "Retorna os dados do(s) filme(s) pelo número no estoque")
+	@ApiResponses({
+		@ApiResponse(responseCode = "200", description = "Filme(s) encontrado(s) com sucesso",
+				content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Filmes.class)))),
+		@ApiResponse(responseCode = "404", description = "Filme(s) não encontrado(s)")
+	})
 	public ResponseEntity<List<Filmes>> buscarPorEstoque (@PathVariable int estoque) {
 		log.info("Buscando o(s) filme(s) pelas unidades no estoque no sistema...");
 		List<Filmes> filmesEstoque = filmesService.buscarPorEstoque(estoque);
@@ -128,6 +181,13 @@ public class FilmesController {
 	}
 	
 	@PutMapping("/{idFilme}/novoEstoque")
+	@Operation(summary = "Alterar estoque", description = "Altera o estoque do filme pelo ID")
+	@ApiResponses({
+		@ApiResponse(responseCode = "200", description = "Estoque alterado com sucesso",
+				content = @Content(mediaType = "application/json", schema = @Schema(implementation = Filmes.class))),
+		@ApiResponse(responseCode = "400", description = "Estoque do filme não deve ser negativo"),
+		@ApiResponse(responseCode = "404", description = "Filme não encontrado")
+	})
 	public ResponseEntity<Filmes> alterarEstoque (@PathVariable Long idFilme, @RequestBody @Valid NovoEstoqueDTO novoEstoqueDTO) {
 		log.info("Iniciando alteração do estoque do filme de ID {} no sistema...", idFilme);
 		
@@ -144,6 +204,13 @@ public class FilmesController {
 	}
 	
 	@PutMapping("/{idFilme}/novaDataLancamento")
+	@Operation(summary = "Alterar data de lançamento", description = "Altera a data de lançamento do filme pelo ID")
+	@ApiResponses({
+		@ApiResponse(responseCode = "200", description = "Data de lançamento alterada com sucesso",
+				content = @Content(mediaType = "application/json", schema = @Schema(implementation = Filmes.class))),
+		@ApiResponse(responseCode = "400", description = "Data de lançamento não deve estar em mês ou ano futuro"),
+		@ApiResponse(responseCode = "404", description = "Filme não encontrado")
+	})
 	public ResponseEntity<Filmes> alterarDataLancamento(@PathVariable Long idFilme, @RequestBody @Valid NovaDataLancamentoDTO novaDataLancamentoDTO) {
 		log.info("Iniciando alteração da data de lançamento do filme de ID {} no sistema...", idFilme);
 		
@@ -160,6 +227,13 @@ public class FilmesController {
 	}
 	
 	@PutMapping("/{idFilme}/novoNomeFilme")
+	@Operation(summary = "Alterar nome do filme", description = "Altera o nome do filme pelo ID")
+	@ApiResponses({
+		@ApiResponse(responseCode = "200", description = "Nome do filme alterado com sucesso",
+				content = @Content(mediaType = "application/json", schema = @Schema(implementation = Filmes.class))),
+		@ApiResponse(responseCode = "409", description = "Nome do filme não deve ser duplicado"),
+		@ApiResponse(responseCode = "404", description = "Filme não encontrado")
+	})
 	public ResponseEntity<Filmes> alterarNomeFilme(@PathVariable Long idFilme, @RequestBody @Valid NovoNomeFilmeDTO novoNomeFilmeDTO) {
 		log.info("Iniciando alteração do nome do filme de ID {} no sistema...", idFilme);
 		
