@@ -193,4 +193,15 @@ public class FilmesServiceTest {
 		verify(filmesValidator).validarDuplicidadeNome(nomeNovo, idFilme);
 		verify(filmesRepository).save(filme1);
 	}
+	
+	@Test
+	void testDeletarFilmePorIdComSucesso() {
+		Long idFilme2 = filme2.getIdFilme();
+		
+		when(filmesRepository.findById(idFilme2)).thenReturn(Optional.of(filme2));
+		
+		filmesService.deletarFilmePorId(idFilme2);
+		
+		verify(filmesRepository, times(1)).delete(filme2);
+	}
 }

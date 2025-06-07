@@ -104,6 +104,14 @@ public class ClienteService {
 		return clienteAtualizado;
 	}
 	
+	public void deletarClientePorId(Long id) {
+		Cliente cliente = clienteRepository.findById(id)
+				.orElseThrow(() -> new ClienteNaoEncontradoException("Cliente de ID " + id + "não encontrado no sistema."));
+		
+		clienteRepository.delete(cliente);
+		log.info("O cliente de ID {} e nome {} foi deletado.", id, cliente.getNome());
+	}
+	
 	
 
 }

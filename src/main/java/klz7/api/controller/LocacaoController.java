@@ -5,6 +5,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -167,6 +168,19 @@ public class LocacaoController {
 		
 		log.info("Locação concluída com sucesso.");
 		return ResponseEntity.ok(respostaDTO);
+	}
+	@DeleteMapping("/{idLocacao}/deletar")
+	@Operation(summary = "Deletar locação", description = "Deletar locação pelo ID")
+	@ApiResponses({
+		@ApiResponse(responseCode = "204", description = "Locação deletada com sucesso."),
+		@ApiResponse(responseCode = "404", description = "Locação não encontrada")
+	})
+	public ResponseEntity<Void> deletarLocacaoPorId (@PathVariable Long idLocacao) {
+		log.info("Deletando locação de ID {} no sistema...", idLocacao);
+		locacaoService.deletarLocacaoPorId(idLocacao);
+		
+		log.info("Locação foi deletada com sucesso.");
+		return ResponseEntity.noContent().build();
 	}
 	
 	

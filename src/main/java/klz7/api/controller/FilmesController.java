@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -248,6 +249,20 @@ public class FilmesController {
 			return ResponseEntity.notFound().build();
 		}
 		
+	}
+	
+	@DeleteMapping("/{idFilme}/deletar")
+	@Operation(summary = "Deletar filme", description = "Deleta o filme pelo ID")
+	@ApiResponses({
+		@ApiResponse(responseCode = "204", description = "Filme deletado com sucesso"),
+		@ApiResponse(responseCode = "404", description = "Filme não encontrado")
+	})
+	public ResponseEntity<Void> deletarFilmePorId(@PathVariable Long idFilme) {
+		log.info("Deletando filme de ID {} no sistema...", idFilme);
+		filmesService.deletarFilmePorId(idFilme);
+		
+		log.info("Filme foi deletado com sucesso.");
+		return ResponseEntity.noContent().build();	
 	}
 	
 	

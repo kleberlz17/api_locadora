@@ -147,4 +147,15 @@ public class ClienteServiceTest {
 		assertEquals(enderecoNovo, resultado.getEndereco());
 		verify(clienteRepository).save(cliente);
 	}
+	
+	@Test
+	void testDeletarClientePorIdComSucesso() {
+		Long id = cliente.getId();
+		
+		when(clienteRepository.findById(id)).thenReturn(Optional.of(cliente));
+		
+		clienteService.deletarClientePorId(id);
+		
+		verify(clienteRepository, times(1)).delete(cliente);
+	}
 }

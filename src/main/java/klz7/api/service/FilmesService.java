@@ -125,6 +125,14 @@ public class FilmesService {
 		return filmesAtualizado;
 	}
 	
+	public void deletarFilmePorId(Long idFilme) {
+		Filmes filmeDeletado = filmesRepository.findById(idFilme)
+				.orElseThrow(() -> new FilmeNaoEncontradoException("Filme de ID {} " + idFilme + "não encontrado no sistema."));
+		
+		filmesRepository.delete(filmeDeletado);
+		log.info("O filme de ID {} e nome {} foi deletado.", idFilme, filmeDeletado.getNome());
+	}
+	
 	
 
 }

@@ -15,6 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.hamcrest.Matchers.containsString;
@@ -203,6 +204,12 @@ public class LocacaoControllerIntegrationTest {
 		log.info("Estoque depois da locação: {}", estoqueDepois);
 		
 		assertEquals(estoqueAntes - 1, estoqueDepois);
+	}
+	
+	@Test
+	void testDeletarLocacaoPorIdComSucesso() throws Exception {
+		mockMvc.perform(delete("/locacao/{idLocacao}/deletar", idLocacao))
+		.andExpect(status().isNoContent());
 	}
 
 }

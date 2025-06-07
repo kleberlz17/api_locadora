@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -188,5 +189,18 @@ public class ClienteController {
 			log.error("Erro ao tentar alterar o endereço do cliente no sistema: {}", ex.getMessage());
 			return ResponseEntity.notFound().build();
 		}
+	}
+	
+	@DeleteMapping("/{id}/deletar")
+	@Operation(summary = "Deletar cliente", description = "Deleta o cliente pelo ID ")
+	@ApiResponses({
+		@ApiResponse(responseCode = "204", description = "Cliente deletado com sucesso"),
+		@ApiResponse(responseCode = "404", description = "Cliente não encontrado")
+	})
+	public ResponseEntity<Void> deletarClientePorId(@PathVariable Long id) {
+		log.info("Deletando cliente de ID {} no sistema...", id);
+		clienteService.deletarClientePorId(id);
+		return ResponseEntity.noContent().build();
+		
 	}
 }

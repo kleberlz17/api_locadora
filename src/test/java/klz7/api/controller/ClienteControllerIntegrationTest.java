@@ -15,6 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.hamcrest.Matchers.containsString;
@@ -149,6 +150,12 @@ public class ClienteControllerIntegrationTest {
 				.content(objectMapper.writeValueAsString(novoEnderecoDTO)))// novoEndereco vem de fora, tem que ter conversão.
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.endereco").value("Trafalgar Square - 32"));	
+	}
+	
+	@Test
+	void testDeletarClientePorIdComSucesso() throws Exception {
+		mockMvc.perform(delete("/clientes/{id}/deletar", id))
+		.andExpect(status().isNoContent());
 	}
 	
 	

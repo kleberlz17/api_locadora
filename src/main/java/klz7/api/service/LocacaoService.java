@@ -152,4 +152,12 @@ public class LocacaoService {
 		return locacaoRepository.save(locacao);	
 	}
 	
+	public void deletarLocacaoPorId(Long idLocacao) {
+		Locacao locacaoDeletada = locacaoRepository.findById(idLocacao)
+				.orElseThrow(() -> new LocacaoNaoEncontradaException("Locação de ID {} " + idLocacao + "não encontrada no sistema."));
+		
+		locacaoRepository.delete(locacaoDeletada);
+		log.info("A locação de ID {} foi deletada.", idLocacao);
+	}
+	
 }

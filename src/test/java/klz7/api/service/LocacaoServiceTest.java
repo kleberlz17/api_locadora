@@ -203,4 +203,15 @@ public class LocacaoServiceTest {
 		
 		assertEquals(0, filmes.getEstoque());
 	}
+	
+	@Test
+	void testDeletarLocacaoPorIdComSucesso() {
+		Long idLocacao = locacao.getIdLocacao();
+		
+		when(locacaoRepository.findById(idLocacao)).thenReturn(Optional.of(locacao));
+		
+		locacaoService.deletarLocacaoPorId(idLocacao);
+		
+		verify(locacaoRepository, times(1)).delete(locacao);
+	}
 }

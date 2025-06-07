@@ -15,6 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.hamcrest.Matchers.containsString;
@@ -170,6 +171,12 @@ public class FilmesControllerIntegrationTest {
 				.content(objectMapper.writeValueAsString(novoNomeFilmeDTO)))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.nome").value("Os Vingadores"));
+	}
+	
+	@Test
+	void testDeletarFilmePorIdComSucesso() throws Exception {
+		mockMvc.perform(delete("/filmes/{idFilme}/deletar", idFilme2))
+		.andExpect(status().isNoContent());
 	}
 
 }
