@@ -37,10 +37,21 @@ Conta com documentação via Swagger e suporte a containerização com Docker.
 
 ## 🚀 Observações
 
-- API **não possui autenticação**, com foco na prática de desenvolvimento e construção de APIs REST.   
-
-- Documentação interativa gerada via Swagger.
+- API **não possui autenticação**, com foco na prática de desenvolvimento e construção de APIs REST.  
+- Documentação interativa gerada via Swagger, disponível em:  
+  [http://localhost:9090/swagger-ui/index.html](http://localhost:9090/swagger-ui/index.html)
 
 ---
 
-👉 Acesse a documentação da API: [http://localhost:9090/swagger-ui/index.html](http://localhost:9090/swagger-ui/index.html)
+## 🐳 Como rodar com Docker
+
+Você pode baixar a imagem oficial da API no Docker Hub:
+
+```bash
+docker pull kleberlz7/api-locadora:latest
+docker run -p 9090:9090 kleberlz7/api-locadora:latest
+```
+
+Para ver mais imagens e versões, acesse:  
+[https://hub.docker.com/u/kleberlz7](https://hub.docker.com/u/kleberlz7)  
+[https://hub.docker.com/repository/docker/kleberlz7/api-locadora/general](https://hub.docker.com/repository/docker/kleberlz7/api-locadora/general)
