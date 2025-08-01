@@ -129,7 +129,7 @@ public class LocacaoControllerIntegrationTest {
 		locacaoDTO.setId(id);
 		locacaoDTO.setIdFilmes(idFilme);
 		locacaoDTO.setDataLocacao(LocalDate.now());
-		locacaoDTO.setDataDevolucao(LocalDate.of(2025, 6, 12));
+		locacaoDTO.setDataDevolucao(LocalDate.now().plusDays(7)); // devolução em 7 dias, indiferente do dia que for testado.
 		locacaoDTO.setDevolvido(false);
 		locacaoDTO.setQuantidade(1);
 	
@@ -149,13 +149,13 @@ public class LocacaoControllerIntegrationTest {
 	@Test
 	void testRenovarLocacaoComSucesso() throws Exception {
 		DevolucaoExtendidaDTO devolucaoExtendidaDTO = new DevolucaoExtendidaDTO();
-		devolucaoExtendidaDTO.setDataDevolucao(LocalDate.of(2025, 6, 20));
+		devolucaoExtendidaDTO.setDataDevolucao(LocalDate.now().plusDays(14)); // extensão de 14 dias a partir de qualquer dia que for testado.
 		
 		mockMvc.perform(put("/locacao/{idLocacao}/renovarLocacao", idLocacao)
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(devolucaoExtendidaDTO))) //DevolucaoExtendida vem de fora, deve ser convertida;
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.dataDevolucao").value("2025-06-20"));
+				.andExpect(jsonPath("$.dataDevolucao").value(devolucaoExtendidaDTO.getDataDevolucao()));
 	}
 	
 	@Test
@@ -176,7 +176,7 @@ public class LocacaoControllerIntegrationTest {
 		aluguelDTO.setId(id2);
 		aluguelDTO.setIdFilmes(idFilmes2);
 		aluguelDTO.setQuantidade(1);
-		aluguelDTO.setDataDevolucao(LocalDate.of(2025, 6, 12));
+		aluguelDTO.setDataDevolucao(LocalDate.now().plusDays(7)); //Devolução daqui a 7 dias, indiferente do dia que for testado.
 		
 		mockMvc.perform(post("/locacao/alugar")
 				.contentType(MediaType.APPLICATION_JSON)
