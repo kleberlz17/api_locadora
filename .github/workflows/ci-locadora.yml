@@ -37,7 +37,7 @@ jobs:
       run: mvn -f api/pom.xml clean package
 
     - name: Upload do artefato .jar
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: locadora-api-jar
         path: api/target/api-0.0.1-SNAPSHOT.jar
