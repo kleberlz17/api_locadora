@@ -125,11 +125,12 @@ public class LocacaoControllerIntegrationTest {
 	
 	@Test
 	void testSalvarLocacaoComSucesso() throws Exception {
+		LocalDate dataDevolucao = LocalDate.now().plusDays(7);// devolução em 7 dias, indiferente do dia que for testado.
 		LocacaoDTO locacaoDTO = new LocacaoDTO();
 		locacaoDTO.setId(id);
 		locacaoDTO.setIdFilmes(idFilme);
 		locacaoDTO.setDataLocacao(LocalDate.now());
-		locacaoDTO.setDataDevolucao(LocalDate.now().plusDays(7)); // devolução em 7 dias, indiferente do dia que for testado.
+		locacaoDTO.setDataDevolucao(dataDevolucao); 
 		locacaoDTO.setDevolvido(false);
 		locacaoDTO.setQuantidade(1);
 	
@@ -137,7 +138,8 @@ public class LocacaoControllerIntegrationTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(locacaoDTO))) //a locação agora vem de fora, tem que converter;
 				.andExpect(status().isCreated())
-				.andExpect(header().string("Location", containsString("/locacao/")));
+				.andExpect(header().string("Location", containsString("/locacao/")))
+				.andExpect(jsonPath("$.dataDevolucao").value(dataDevolucao.toString())); //Comparando como String.
 	}
 	
 	@Test
@@ -148,14 +150,15 @@ public class LocacaoControllerIntegrationTest {
 	
 	@Test
 	void testRenovarLocacaoComSucesso() throws Exception {
+		LocalDate novaDataDevolucao = LocalDate.now().plusDays(15); // extensão de 15 dias a partir de qualquer dia que for testado.
 		DevolucaoExtendidaDTO devolucaoExtendidaDTO = new DevolucaoExtendidaDTO();
-		devolucaoExtendidaDTO.setDataDevolucao(LocalDate.now().plusDays(14)); // extensão de 14 dias a partir de qualquer dia que for testado.
+		devolucaoExtendidaDTO.setDataDevolucao(novaDataDevolucao);
 		
 		mockMvc.perform(put("/locacao/{idLocacao}/renovarLocacao", idLocacao)
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(devolucaoExtendidaDTO))) //DevolucaoExtendida vem de fora, deve ser convertida;
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.dataDevolucao").value(devolucaoExtendidaDTO.getDataDevolucao()));
+				.andExpect(jsonPath("$.dataDevolucao").value(novaDataDevolucao.toString())); //Comparação como String
 	}
 	
 	@Test
@@ -181,7 +184,8 @@ public class LocacaoControllerIntegrationTest {
 		mockMvc.perform(post("/locacao/alugar")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(aluguelDTO)))
-				.andExpect(status().isOk());
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.dataDevolucao").value(LocalDate.now().plusDays(7).toString())); //Comparando como String
 	}
 	
 	@Test
