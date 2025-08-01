@@ -63,7 +63,7 @@ public class LocacaoController {
 		URI uri = URI.create("/locacao/" + locacaoSalva.getIdLocacao());
 		
 		log.info("Locação salva com sucesso. ID gerado: {}", locacaoSalva.getIdLocacao());
-		return ResponseEntity.created(uri).build();
+		return ResponseEntity.created(uri).body(locacaoSalva); //retornando o body agora.(json)
 	}
 	
 	@GetMapping("/{id}/locacoes")
