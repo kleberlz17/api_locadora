@@ -31,7 +31,7 @@ import klz7.api.repository.ClienteRepository;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 @Transactional // Testes rodam isoladamente.
 @Rollback // Desfaz tudo no banco de dados ao final do teste.
 public class ClienteControllerIntegrationTest {

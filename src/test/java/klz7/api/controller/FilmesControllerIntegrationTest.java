@@ -32,7 +32,7 @@ import klz7.api.repository.FilmesRepository;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 @Transactional
 @Rollback
 public class FilmesControllerIntegrationTest {
