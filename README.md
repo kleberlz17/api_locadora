@@ -51,3 +51,11 @@ Você pode baixar a imagem oficial da API no Docker Hub:
 ```bash
 docker pull kleberlz7/api-locadora:latest
 docker run -p 9090:9090 kleberlz7/api-locadora:latest
+```
+
+## 🐳 Docker Compose
+O projeto agora inclui um arquivo `docker-compose.yml` para facilitar o desenvolvimento local. Com ele, você pode iniciar a API e o banco de dados PostgreSQL juntos, com um único comando:
+
+```bash
+docker-compose up
+```
